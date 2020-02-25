@@ -15,7 +15,7 @@
         pgrole: 'vnc-xfce'
         intport: '6901'
         extport: '6910'
-        image: 'consol/ubuntu-xfce-vnc'
+        image: 'accetto/ubuntu-vnc-xfce'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
