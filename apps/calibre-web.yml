@@ -38,13 +38,14 @@
           traefik.frontend.headers.contentTypeNosniff: 'true'
           traefik.frontend.headers.customResponseHeaders: 'X-Robots-Tag:noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex'
           traefik.frontend.headers.forceSTSHeader: 'true'
-          
+
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
           - '/opt/appdata/{{pgrole}}:/books'
           - '/opt/appdata/{{pgrole}}/config:/calibre-web/config'
           - '/etc/localtime:/etc/localtime:ro'
+          - '/:/SERVER'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
@@ -54,7 +55,7 @@
           CONTAINER_TIMEZONE: 'Europe/Copenhagen'
           PUID: '1000'
           PGID: '1000'
-          
+
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
       docker_container:
