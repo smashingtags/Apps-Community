@@ -48,7 +48,7 @@
           - '{{path.stdout}}:{{path.stdout}}'
           - '/mnt/unionfs:/unionfs:rw'
           - '/etc/localtime:/etc/localtime:ro'
-          - '/mnt/unionfs/libary:/library:rw'
+          - '/mnt/unionfs/library:/library:rw'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
