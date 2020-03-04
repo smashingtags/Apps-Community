@@ -28,6 +28,7 @@
           RADARR_B_PROFILE_ID: 'follow instructions here to get ID (https://github.com/syncarr/syncarr)'
           RADARR_B_PATH: 'settoyourmoviepath Example: (/mnt/unionfs/Movies)'
           SYNC_INTERVAL_SECONDS: '3600' #Updates every hour
+          SYNC_BIDIRECTIONALLY: '0'
           LOG_LEVEL: '10'
 
 
