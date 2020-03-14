@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Title:      PGBlitz (linuxserver/airsonic)
-# Author(s):  MrDoob
+# Title:      PGBlitz (Reference Title File)
+# Author(s):  Admin9705
 # URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
@@ -10,16 +10,27 @@
   gather_facts: false
   tasks:
     # FACTS #######################################################################
+
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'airsonic'
-        intport: '4040'
-        extport: '4040'
-        image: 'linuxserver/airsonic'
+        pgrole: 'alltube'
+        intport: '80'
+        extport: '1234'
+        image: 'rudloff/alltube'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
       include_tasks: '/opt/communityapps/apps/_core.yml'
+
+    # FOR ALLTUBE #################################################################
+    - name: Install autoProcess.ini
+      template:
+        src: /opt/communityapps/apps/templates/alltube.js2
+        dest: /opt/appdata/{{pgrole}}/config.json
+        force: yes
+        mode: 0775
+        owner: '1000'
+        group: '1000'
 
     # LABELS ######################################################################
     - name: 'Adding Traefik'
@@ -42,11 +53,7 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/etc/localtime:/etc/localtime:ro'
-          - '/opt/appdata/{{pgrole}}:/airsonic/data'
-          - '/opt/appdata/{{pgrole}}/playlists:/airsonic/playlists'
-          - '/opt/appdata/{{pgrole}}/podcasts:/airsonic/podcasts'
-          - '{{path.stdout}}:{{path.stdout}}'
+          - '/opt/appdata/{{pgrole}}:/var/www/html/config'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
