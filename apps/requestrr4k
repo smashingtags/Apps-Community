@@ -12,10 +12,10 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'requestrr4k'
-        intport: '4546'
-        extport: '4546'
-        intport2: '5063'
-        extport2: '5063'
+        intport: '4545'
+        extport: '4545'
+        intport2: '5060'
+        extport2: '5062'
         image: 'darkalfx/requestrr:latest'
 
     # CORE (MANDATORY) ############################################################
