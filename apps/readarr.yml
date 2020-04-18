@@ -15,7 +15,7 @@
         pgrole: 'readarr'
         intport: '8687'
         extport: '8687'
-        image: 'hotio/readarr'
+        image: 'hotio/readarr:unstable'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
