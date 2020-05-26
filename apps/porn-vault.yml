@@ -43,7 +43,7 @@
           - '/path/to/first/videos:/videos_1'
           - '/path/to/more/videos:/videos_2'
           - '/path/to/first/images:/images_1'
-          - '/path/to/more/images:/images_1'
+          - '/path/to/more/images:/images_2'
           - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting {{pgrole}} ENV'
