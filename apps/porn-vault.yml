@@ -39,7 +39,7 @@
       set_fact:
         pg_volumes:
           - '/opt/appdata/{{pgrole}}/config:/config'
-            '/opt/appdata/{{pgrole}}/config:/config/config.json'
+            '/opt/appdata/{{pgrole}}/config:/config.json'
           - '/path/to/first/videos:/videos_1'
             '/path/to/more/videos:/videos_2'
             '/path/to/first/images:/images_1'
