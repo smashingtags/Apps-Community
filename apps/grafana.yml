@@ -11,7 +11,7 @@
         pgrole: 'grafana'
         intport: '3000'
         extport: '3000'
-        image: 'grafana/grafana:master-ubuntu'
+        image: 'grafana/grafana'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
