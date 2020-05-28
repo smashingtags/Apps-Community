@@ -22,7 +22,7 @@
         pgrole: 'varken'
         intport: '80'
         extport: '3000'
-        image: 'h1f0x/centos-varken'
+        image: 'justinglock40/varken'
 
     - name: Register VRKN_GLOBAL_MAXMIND_LICENSE_KEY
       shell: 'cat /var/plexguide/varken/geoip.key'
