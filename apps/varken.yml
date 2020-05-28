@@ -21,7 +21,7 @@
       set_fact:
         pgrole: 'varken'
         intport: '80'
-        extport: '5985'
+        extport: '3000'
         image: 'h1f0x/centos-varken'
 
     - name: Register VRKN_GLOBAL_MAXMIND_LICENSE_KEY
