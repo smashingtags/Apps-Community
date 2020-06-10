@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Title:      PGBlitz (Reference Title File)
-# Author(s):  Admin9705
-# URL:        https://pgblitz.com - http://github.pgblitz.com
+# Title:      
+# Author(s):  
+# URL:        
 # GNU:        General Public License v3.0
 ################################################################################
 ---
@@ -53,7 +53,7 @@
           PGID: '1000'
           PLEX_BASE_URL: 'http://plex:32400'
           PLEX_TOKEN: 'somerandomstring'
-
+          
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
