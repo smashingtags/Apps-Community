@@ -23,7 +23,7 @@
 
     
 
-    - name: 'Setting {{pgrole}} Volumes'
+    - name: 'Setting traktarr Volumes'
       set_fact:
         pg_volumes:
           - '{{path.stdout}}:{{path.stdout}}'
