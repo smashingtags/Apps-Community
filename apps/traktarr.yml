@@ -21,9 +21,9 @@
     - name: 'Including plugins'
       include_tasks: '/opt/coreapps/apps/_plugins.yml'
 
-    
 
-    - name: 'Setting traktarr Volumes'
+
+    - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
           - '{{path.stdout}}:{{path.stdout}}'
