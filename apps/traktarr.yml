@@ -17,8 +17,6 @@
         image: 'eafxx/traktarr:latest'
 
     # CORE (MANDATORY) ############################################################
-    - name: 'Including cron job'
-      include_tasks: '/opt/coreapps/apps/_core.yml'
 
     - name: 'Including plugins'
       include_tasks: '/opt/coreapps/apps/_plugins.yml'
@@ -51,8 +49,8 @@
 
     - name: 'Deploying {{pgrole}}'
       docker_container:
-        name: '{{pgrole}}'
-        image: '{{image}}'
+        name: 'traktarr'
+        image: 'eafxx/traktarr:latest'
         pull: yes
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
