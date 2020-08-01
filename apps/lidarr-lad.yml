@@ -14,7 +14,7 @@
         pgrole: 'lidarr-lad'
         intport: '8686'
         extport: '8686'
-        image: 'randomninjaatk/lidarr-lad:latest'
+        image: 'randomninjaatk/lidarr-lad'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
