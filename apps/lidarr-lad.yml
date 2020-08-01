@@ -1,0 +1,95 @@
+#!/bin/bash
+#
+# Author(s):  justinglock40
+# URL:        https://pgblitz.com - http://github.pgblitz.com
+# GNU:        General Public License v3.0
+################################################################################
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    # FACTS #######################################################################
+    - name: 'Set Known Facts'
+      set_fact:
+        pgrole: 'lidarr-lad'
+        intport: '8686'
+        extport: '8686'
+        image: 'randomninjaatk/lidarr-lad'
+
+    # CORE (MANDATORY) ############################################################
+    - name: 'Including cron job'
+      include_tasks: '/opt/communityapps/apps/_core.yml'
+
+    # LABELS ######################################################################
+    - name: 'Adding Traefik'
+      set_fact:
+        pg_labels:
+          traefik.enable: 'true'
+          traefik.port: '{{intport}}'
+          traefik.frontend.auth.forward.address: '{{gauth}}'
+          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}}{{tldset}}{{cname}}'
+          traefik.frontend.headers.SSLHost: '{{domain.stdout}}'
+          traefik.frontend.headers.SSLRedirect: 'true'
+          traefik.frontend.headers.STSIncludeSubdomains: 'true'
+          traefik.frontend.headers.STSPreload: 'true'
+          traefik.frontend.headers.STSSeconds: '315360000'
+          traefik.frontend.headers.browserXSSFilter: 'true'
+          traefik.frontend.headers.contentTypeNosniff: 'true'
+          traefik.frontend.headers.customResponseHeaders: 'X-Robots-Tag:noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex'
+          traefik.frontend.headers.forceSTSHeader: 'true'
+
+    - name: 'Setting {{pgrole}} Volumes'
+      set_fact:
+        pg_volumes:
+          - '/opt/appdata/{{pgrole}}:/root/config'
+          - '/opt/appdata/{{pgrole}}:/root/storage'
+          - '/opt/appdata/{{pgrole}}:/root/videos'
+    - name: 'Setting {{pgrole}} ENV'
+      set_fact:
+        pg_env:
+          PUID: '1000'
+          PGID: '1000'
+          TZ: 'America/New_York'
+          UMASK_SET: '22'
+          VIDEOPATH: '/path/to/videos'
+          LidarrUrl: 'http://127.0.0.1:8686'
+          MBRAINZMIRROR: 'https://musicbrainz.org'
+          DLMODE: 'Audio'
+          AMODE: 'wanted'
+          IMODE: 'match'
+          TRACKUPGRADE: 'false'
+          ENABLE_LAD: 'TRUE'
+          ARL_TOKEN: ''
+          CONCURRENCY: '4'
+          VerifyTrackCount: 'true'
+          amount: '1000000000'
+          quality: 'MP3'
+          ConversionBitrate: '320'
+          ReplaygainTagging: 'false'
+          FilePermissions: '666'
+          FolderPermissions: '777'
+          TagWithBeets: 'true'
+          RequireQuality: 'false'
+          CountryCode: 'us'
+          RequireVideoMatch: 'true'
+          videoformat: '--format bestvideo[vcodec*=avc1]+bestaudio[ext=m4a]'
+          subtitlelanguage: 'en'
+
+    # MAIN DEPLOYMENT #############################################################
+    - name: 'Deploying {{pgrole}}'
+      docker_container:
+        name: '{{pgrole}}'
+        image: '{{image}}'
+        pull: yes
+        published_ports:
+          - '{{ports.stdout}}{{extport}}:{{intport}}'
+          - '{{ports.stdout}}{{extport2}}:{{intport2}}'
+        volumes: '{{pg_volumes}}'
+        env: '{{pg_env}}'
+        restart_policy: unless-stopped
+        networks:
+          - name: plexguide
+            aliases:
+              - '{{pgrole}}'
+        state: started
+        labels: '{{pg_labels}}'
