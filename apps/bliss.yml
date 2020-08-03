@@ -15,7 +15,7 @@
         intport: '3220'
         extport: '3220'
         intport2: '3221'
-        extport1: '3221'
+        extport2: '3221'
         image: 'romancin/bliss'
 
     # CORE (MANDATORY) ############################################################
