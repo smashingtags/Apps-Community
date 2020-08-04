@@ -15,7 +15,7 @@
         intport: '443'
         extport: '8443'
         intport2: '9000'
-        extport2: '9000'
+        extport2: '9001'
         image: 'dlandon/zoneminder'
 
     # CORE (MANDATORY) ############################################################
