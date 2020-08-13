@@ -14,7 +14,7 @@
       set_fact:
         pgrole: 'fail2rest'
         intport: '5000'
-        extport: '5000'
+        extport: '5001'
         image: 'monogramm/docker-fail2rest'
 
     # CORE (MANDATORY) ############################################################
