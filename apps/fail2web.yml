@@ -13,7 +13,7 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'fail2web'
-        intport: '80'
+        intport: '8089'
         extport: '80'
         image: 'jiigsaaw/fail2web'
 
