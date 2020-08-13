@@ -44,7 +44,7 @@
         pg_volumes:
           - '/etc/localtime:/etc/localtime:ro'
           - '/etc/timezone:/etc/timezone:ro'
-          - '/opt/appdata/{{pgrole}}/var/run/fail2ban/:/var/run/fail2ban/
+          - '/opt/appdata/{{pgrole}}/var/run/fail2ban/:/var/run/fail2ban/'
           - '{{path.stdout}}:{{path.stdout}}'
 
     - name: 'Setting {{pgrole}} ENV'
