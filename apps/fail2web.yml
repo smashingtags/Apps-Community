@@ -14,7 +14,7 @@
       set_fact:
         pgrole: 'fail2web'
         intport: '80'
-        extport: '8099'
+        extport: '8088'
         image: 'monogramm/docker-fail2web'
 
     # CORE (MANDATORY) ############################################################
