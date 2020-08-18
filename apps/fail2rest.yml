@@ -1,7 +1,8 @@
 #!/bin/bash
 #
+# Title:      fail2rest
 # Author(s):  smashingtags
-# URL:        https://github.com/MHA-Team - https://github.com/RandomNinjaAtk/docker-lidarr-lad
+# URL:        https://github.com/Sean-Der/fail2rest
 # GNU:        General Public License v3.0
 ################################################################################
 ---
@@ -11,10 +12,10 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'lidarr-lad'
-        intport: '8686'
-        extport: '8686'
-        image: 'randomninjaatk/lidarr-lad'
+        pgrole: 'fail2rest'
+        intport: '5000'
+        extport: '5001'
+        image: 'monogramm/docker-fail2rest'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -41,40 +42,15 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/mnt:/mnt'
-          - '/opt/appdata/{{pgrole}}/config:/root/config'
-          - '/opt/appdata/{{pgrole}}:/root/storage'
-          - '/opt/appdata/{{pgrole}}:/root/videos'
+          - '/etc/localtime:/etc/localtime:ro'
+          - '/etc/timezone:/etc/timezone:ro'
+          - '/opt/appdata/{{pgrole}}/var/run/fail2ban/:/var/run/fail2ban/'
+          - '{{path.stdout}}:{{path.stdout}}'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
-          TZ: 'America/New_York'
-          UMASK_SET: '22'
-          VIDEOPATH: '/path/to/videos'
-          LidarrUrl: 'http://127.0.0.1:8686'
-          MBRAINZMIRROR: 'https://musicbrainz.org'
-          DLMODE: 'Audio'
-          AMODE: 'wanted'
-          IMODE: 'match'
-          TRACKUPGRADE: 'false'
-          ENABLE_LAD: 'TRUE'
-          ARL_TOKEN: ''
-          CONCURRENCY: '4'
-          VerifyTrackCount: 'true'
-          amount: '1000000000'
-          quality: 'MP3'
-          ConversionBitrate: '320'
-          ReplaygainTagging: 'false'
-          FilePermissions: '666'
-          FolderPermissions: '777'
-          TagWithBeets: 'true'
-          RequireQuality: 'false'
-          CountryCode: 'us'
-          RequireVideoMatch: 'true'
-          videoformat: '--format bestvideo[vcodec*=avc1]+bestaudio[ext=m4a]'
-          subtitlelanguage: 'en'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'

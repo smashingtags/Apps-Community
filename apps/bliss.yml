@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author(s):  smashingtags
-# URL:        https://github.com/MHA-Team - https://github.com/RandomNinjaAtk/docker-lidarr-lad
+# URL:        https://pgblitz.com - http://github.pgblitz.com
 # GNU:        General Public License v3.0
 ################################################################################
 ---
@@ -11,10 +11,12 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'lidarr-lad'
-        intport: '8686'
-        extport: '8686'
-        image: 'randomninjaatk/lidarr-lad'
+        pgrole: 'bliss'
+        intport: '3220'
+        extport: '3220'
+        intport2: '3221'
+        extport2: '3221'
+        image: 'romancin/bliss'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -41,40 +43,15 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/mnt:/mnt'
-          - '/opt/appdata/{{pgrole}}/config:/root/config'
-          - '/opt/appdata/{{pgrole}}:/root/storage'
-          - '/opt/appdata/{{pgrole}}:/root/videos'
+          - '/opt/appdata/{{pgrole}}/config:/config'
+          - '/opt/appdata/{{pgrole}}/MyMusic:/music'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
-          PUID: '1000'
-          PGID: '1000'
+          PUID: '0'
+          PGID: '0'
           TZ: 'America/New_York'
-          UMASK_SET: '22'
-          VIDEOPATH: '/path/to/videos'
-          LidarrUrl: 'http://127.0.0.1:8686'
-          MBRAINZMIRROR: 'https://musicbrainz.org'
-          DLMODE: 'Audio'
-          AMODE: 'wanted'
-          IMODE: 'match'
-          TRACKUPGRADE: 'false'
-          ENABLE_LAD: 'TRUE'
-          ARL_TOKEN: ''
-          CONCURRENCY: '4'
-          VerifyTrackCount: 'true'
-          amount: '1000000000'
-          quality: 'MP3'
-          ConversionBitrate: '320'
-          ReplaygainTagging: 'false'
-          FilePermissions: '666'
-          FolderPermissions: '777'
-          TagWithBeets: 'true'
-          RequireQuality: 'false'
-          CountryCode: 'us'
-          RequireVideoMatch: 'true'
-          videoformat: '--format bestvideo[vcodec*=avc1]+bestaudio[ext=m4a]'
-          subtitlelanguage: 'en'
+
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
@@ -84,6 +61,7 @@
         pull: yes
         published_ports:
           - '{{ports.stdout}}{{extport}}:{{intport}}'
+          - '{{ports.stdout}}{{extport2}}:{{intport2}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
         restart_policy: unless-stopped
