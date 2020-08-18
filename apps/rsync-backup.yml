@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 #
 # Title:      rsync_backup docker with automatic  upload functionality
@@ -81,3 +82,88 @@
             aliases:
               - 'rsync-backup'
         state: started
+=======
+#!/bin/bash
+#
+# Title:      rsync_backup docker with automatic  upload functionality
+# Author(s):  MrDoob / doob187 / kkhiller
+#
+# License:    Copyright (c) 2020 @Authors
+# Own Risk any edits or mods
+################################################################################
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    # #######################################################################
+    - name: 'Set Known Facts'
+      set_fact:
+        pgrole: 'rsync-backup'
+        image: 'mrdoob/rsyncbackup'
+
+    - name: 'Register TimeZone'
+      shell: 'cat /etc/timezone'
+      register: tz
+
+    - name: 'Register Server ID'
+      shell: 'cat /var/plexguide/server.id'
+      register: serverid
+
+    - name: 'Setting {{pgrole}} Volumes'
+      set_fact:
+        amg_volumes:
+          - '/opt/appdata/:/home'
+          - '/mnt/backup:/backup'
+          - '/opt/appdata/{{pgrole}}/rclone:/rclone'
+          - '/opt/appdata/{{pgrole}}/log:/log'
+
+    - name: 'Setting {{pgrole}} ENV'
+      set_fact:
+        amg_env:
+          CRON_TIME : '0 1 * * *'
+          CONTAINER_TIMEZONE: '{{tz.stdout}}'
+          BACKUP_HOLD: '15'
+          SERVER_ID: '{{serverid.stdout}}'
+
+
+    ## VALUES for upload backups
+
+    - name: 'Create {{pgrole}} dir folder'
+      file:
+        path: '/opt/appdata/{{pgrole}}/rclone'
+        state: directory
+        mode: '0755'
+
+    - name: 'Check of Existance files in {{ pgrole }}'
+      stat:
+        path: '/opt/appdata/{{pgrole}}/rclone/rclone.conf'
+      register: rcp
+
+    - name: 'Remove old rclone.conf from {{ pgrole }} folder'
+      shell: 'rm -rf /opt/appdata/{{pgrole}}/rclone/rclone.conf'
+      ignore_errors: yes
+      when: rcp.stat.exists == true
+
+    - name: 'Clone rclone.config to {{ pgrole }} folder'
+      shell: 'cp -r /opt/appdata/plexguide/rclone.conf /opt/appdata/{{pgrole}}/rclone/rclone.conf'
+      ignore_errors: yes
+
+    # MAIN DEPLOYMENT
+    # #############################################################
+    - name: 'Deploying {{pgrole}}'
+      docker_container:
+        name: '{{pgrole}}'
+        image: '{{image}}'
+        pull: yes
+        volumes: '{{amg_volumes}}'
+        env: '{{amg_env}}'
+        restart_policy: unless-stopped
+        capabilities:
+          - 'SYS_TIME'
+          - 'SYS_NICE'
+        networks:
+          - name: plexguide
+            aliases:
+              - 'rsync-backup'
+        state: started
+>>>>>>> c0293e9b0679c1ca4c917efc012471ffcfd544a3
