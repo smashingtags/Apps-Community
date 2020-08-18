@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+# Title:      porn-vault
+# Author(s):  smashingtags
+# URL:        https://github.com/boi123212321/porn-vault
+# GNU:        General Public License v3.0
 ################################################################################
 ---
 - hosts: localhost
