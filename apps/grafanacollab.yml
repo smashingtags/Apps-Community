@@ -14,7 +14,7 @@
         intport2: '3004'
         extport: '3003'
         extport2: '8888'
-        inport3: '8086'
+        intport3: '8086'
         export3: '8086'
         intport4: '8125'
         extport: '8125'
