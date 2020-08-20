@@ -53,7 +53,7 @@
           - '/opt/appdata/{{pgrole}}:/root'
           - '/opt/appdata/scripts:/tmp/'
           - '/opt/appdata/influxdb/etc/influxdb.conf:/etc/influxdb/influxdb.conf'
-          - '/opt/appdata/influxdb/init.sh :/etc/init.d/influxdb'
+          - '/opt/appdata/influxdb/init.sh:/etc/init.d/influxdb'
           - '/opt/appdata/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf'
           - '/opt/appdata/telegraf/init.sh:/etc/init.d/telegraf/init.sh'
           - '/opt/appdata/grafana/provisioning:/etc/grafana/provisioning'
