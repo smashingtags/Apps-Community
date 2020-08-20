@@ -15,9 +15,9 @@
         extport: '3003'
         extport2: '8888'
         intport3: '8086'
-        export3: '8086'
+        extport3: '8086'
         intport4: '8125'
-        extport: '8125'
+        extport4: '8125'
         image: 'samuelebistoletti/docker-statsd-influxdb-grafana:latest'
 
     # CORE (MANDATORY) ############################################################
