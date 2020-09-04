@@ -11,7 +11,7 @@
         pgrole: 'grafana'
         intport: '3000'
         extport: '3000'
-        image: 'grafana/grafana:4.6.3'
+        image: 'grafana/grafana'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -45,6 +45,7 @@
         pg_volumes:
           - '/opt/appdata/{{pgrole}}:/var/lib/grafana'
           - '/opt/appdata/{{pgrole}}/etc:/etc/grafana'
+          - '/opt/appdata/grafana/etc/provisioning/datasources:/etc/grafana/provisioning'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
 
@@ -53,7 +54,12 @@
         pg_env:
           PUID: '1000'
           PGID: '1000'
-
+          GF_PATHS_CONFIG: '/etc/grafana/grafana.ini'
+          GF_PATHS_DATA: '/var/lib/grafana'
+          GF_PATHS_HOME: '/usr/share/grafana'
+          GF_PATHS_LOGS: '/var/log/grafana'
+          GF_PATHS_PLUGINS: '/var/lib/grafana/plugins'
+          GF_PATHS_PROVISIONING: '/etc/grafana/provisioning'
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
       docker_container:
@@ -83,4 +89,3 @@
       docker_container:
         name: '{{pgrole}}'
         state: started
-
