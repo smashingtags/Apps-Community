@@ -40,12 +40,17 @@
         pg_volumes:
           - '/opt/appdata/{{pgrole}}:/etc/openvpn'
           - '/etc/localtime:/etc/localtime:ro'
+          
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
+          OPENVPN: '/etc/openvpn'
+          EASYRSA: '/usr/share/easy-rsa'
+          EASYRSA_PKI: '$OPENVPN/pki'
+          EASYRSA_VARS_FILE: '$OPENVPN/vars'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
