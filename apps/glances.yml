@@ -72,7 +72,7 @@
         restart_policy: unless-stopped
         networks:
           - name: plexguide
-          aliases:
+            aliases:
               - '{{pgrole}}'
         privileged: yes
         sandbox: no
