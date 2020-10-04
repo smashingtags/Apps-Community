@@ -90,8 +90,8 @@
         state: started
         #cpuset_cpus: '0'
         #devices:
-          - /dev/dri:/dev/dri:rwm
-          - /dev/snd:/dev/snd:rwm
+         # - /dev/dri:/dev/dri:rwm
+         # - /dev/snd:/dev/snd:rwm
         #memory: '2G'
         #security_opts: 'seccomp:/opt/appdata/chrome/chrome.json'
         labels: '{{pg_labels}}'
