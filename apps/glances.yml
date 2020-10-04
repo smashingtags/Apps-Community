@@ -75,6 +75,6 @@
             aliases:
               - '{{pgrole}}'
         privileged: yes
-        sandbox: no
+        #sandbox: no
         state: started
         labels: '{{pg_labels}}'
