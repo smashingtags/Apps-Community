@@ -58,18 +58,15 @@
           - '/opt/appdata/{{pgrole}}/data:/etc/glances'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/var/run/docker.sock:/var/run/docker.sock:ro'
-          - '/opt/appdata/{{pgrole}}/data/conf:/glances/conf
-          #- '/mnt:/mnt'
-
+          - '/opt/appdata/{{pgrole}}/data:/glances/conf
+          - '/mnt:/mnt'
     - name: 'Setting PG ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
           GLANCES_OPT: '-w'
-
     # MAIN SCRIPT ##############################################################
-
     - name: 'Deploying {{pgrole}}'
       docker_container:
         name: '{{pgrole}}'
