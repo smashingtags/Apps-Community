@@ -16,8 +16,8 @@
         pgrole: 'glances'
         intport1: '61208'
         extport1: '61208'
-        intport2:'61209'
-        extport2 '61209'
+        intport2: '61209'
+        extport2: '61209'
         image: 'nicolargo/glances:latest'
 
     - name: 'Including cron job'
