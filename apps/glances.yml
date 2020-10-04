@@ -58,6 +58,7 @@
           - '/opt/appdata/{{pgrole}}/data:/etc/glances'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/var/run/docker.sock:/var/run/docker.sock:ro'
+          - '/opt/appdata/{{pgrole}}/data:/glances/conf
           - '/mnt:/mnt'
 
     - name: 'Setting PG ENV'
