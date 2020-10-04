@@ -33,15 +33,7 @@
         group: '1000'
         mode: '0755'
 
-    - name: 'Create plugins directory for {{pgrole}}'
-      file:
-        path: /opt/appdata/{{pgrole}}/plugins
-        state: directory
-        owner: '1000'
-        group: '1000'
-        mode: '0755'
-
-    # LABELS #### KEEPS BOTTOM CLEAN ###########################################
+    # LABELS
     - name: 'Adding Traefik'
       set_fact:
         pg_labels:
@@ -66,7 +58,7 @@
           PUID: '1000'
           PGID: '1000'
           GLANCES_OPT: '-w'
-    # MAIN SCRIPT ##############################################################
+    # MAIN DEPLOYMENT ##############################################################
     - name: 'Deploying {{pgrole}}'
       docker_container:
         name: '{{pgrole}}'
@@ -75,16 +67,14 @@
         published_ports:
            - '{{ports.stdout}}{{extport1}}:{{intport1}}'
            - '{{ports.stdout}}{{extport2}}:{{intport2}}'
-          # - '{{extport3}}:{{intport3}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
         restart_policy: unless-stopped
-        network_mode: 'bridge'
           networks:
          - name: plexguide
           aliases:
               - '{{pgrole}}'
-         privileged: yes
+        privileged: yes
         sandbox: no
         state: started
         labels: '{{pg_labels}}'
