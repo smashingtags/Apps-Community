@@ -14,9 +14,9 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'glances'
-        intport: '61208'
+        intport1: '61208'
+        extport1: '61208'
         intport2:'61209'
-        extport: '61208'
         extport2 '61209'
         image: 'nicolargo/glances:latest'
 
@@ -47,7 +47,7 @@
         pg_labels:
           traefik.frontend.auth.forward.address: '{{gauth}}'
           traefik.enable: 'true'
-          traefik.port: '{{intport}}'
+          traefik.port: '{{intport1}}'
           traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}'
           traefik.frontend.headers.SSLProxyHeaders: 'X-Forwarded-Proto: https'
           traefik.frontend.headers.SSLRedirect: 'true'
@@ -75,7 +75,7 @@
         image: '{{image}}'
         pull: yes
         published_ports:
-           - '{{ports.stdout}}{{extport}}:{{intport}}'
+           - '{{ports.stdout}}{{extport1}}:{{intport1}}'
            - '{{ports.stdout}}{{extport2}}:{{intport2}}'
           # - '{{extport3}}:{{intport3}}'
         volumes: '{{pg_volumes}}'
