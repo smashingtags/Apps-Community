@@ -15,8 +15,10 @@
       set_fact:
         pgrole: 'glances'
         intport: '61208'
+        intport2:'61209'
         extport: '61208'
-        image: 'vimagick/glances'
+        extport2 '61209'
+        image: 'nicolargo/glances:latest'
 
     - name: 'Including cron job'
       include_tasks: '/opt/communityapps/apps/_core.yml'
@@ -56,15 +58,14 @@
           - '/opt/appdata/{{pgrole}}/data:/etc/glances'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/var/run/docker.sock:/var/run/docker.sock:ro'
-          # - '/mnt:/mnt'
+          - '/mnt:/mnt'
 
     - name: 'Setting PG ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
-          GLANCES_OPT: -w
-          # DISPLAY: unix$DISPLAY
+          GLANCES_OPT: '-w'
 
     # MAIN SCRIPT ##############################################################
 
@@ -73,25 +74,19 @@
         name: '{{pgrole}}'
         image: '{{image}}'
         pull: yes
-      #  published_ports:
-          # - '{{ports.stdout}}{{extport}}:{{intport}}'
-          # - '{{ports.stdout}}{{extport2}}:{{intport2}}'
+        published_ports:
+           - '{{ports.stdout}}{{extport}}:{{intport}}'
+           - '{{ports.stdout}}{{extport2}}:{{intport2}}'
           # - '{{extport3}}:{{intport3}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
         restart_policy: unless-stopped
-        network_mode: 'host'
-         # networks:
-        # - name: plexguide
-        #  aliases:
-        #      - '{{pgrole}}'
-        # privileged: yes
-        #sandbox: no
+        network_mode: 'bridge'
+          networks:
+         - name: plexguide
+          aliases:
+              - '{{pgrole}}'
+         privileged: yes
+        sandbox: no
         state: started
-        #cpuset_cpus: '0'
-        #devices:
-         # - /dev/dri:/dev/dri:rwm
-         # - /dev/snd:/dev/snd:rwm
-        #memory: '2G'
-        #security_opts: 'seccomp:/opt/appdata/chrome/chrome.json'
         labels: '{{pg_labels}}'
