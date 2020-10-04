@@ -14,8 +14,8 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'glances'
-        intport1: '61208'
-        extport1: '61208'
+        intport: '61208'
+        extport: '61208'
         intport2: '61209'
         extport2: '61209'
         image: 'nicolargo/glances:latest'
@@ -39,7 +39,7 @@
         pg_labels:
           traefik.frontend.auth.forward.address: '{{gauth}}'
           traefik.enable: 'true'
-          traefik.port: '{{intport1}}'
+          traefik.port: '{{intport}}'
           traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}'
           traefik.frontend.headers.SSLProxyHeaders: 'X-Forwarded-Proto: https'
           traefik.frontend.headers.SSLRedirect: 'true'
@@ -51,7 +51,7 @@
           - '{{path.stdout}}:{{path.stdout}}'
           - '/var/run/docker.sock:/var/run/docker.sock:ro'
           - '/opt/appdata/{{pgrole}}/data:/glances/conf'
-          - '/mnt:/mnt'
+          #- '/mnt:/mnt'
     - name: 'Setting PG ENV'
       set_fact:
         pg_env:
@@ -65,7 +65,7 @@
         image: '{{image}}'
         pull: yes
         published_ports:
-           - '{{ports.stdout}}{{extport1}}:{{intport1}}'
+           - '{{ports.stdout}}{{extport}}:{{intport}}'
            - '{{ports.stdout}}{{extport2}}:{{intport2}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
