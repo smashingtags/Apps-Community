@@ -14,7 +14,7 @@
       set_fact:
         pgrole: 'plexcleaner4k'
         intport: '80'
-        extport: '5000'
+        extport: '5001'
         image: 'smashingtags/plex-library-cleaner-4k'
 
     # CORE (MANDATORY) ############################################################
