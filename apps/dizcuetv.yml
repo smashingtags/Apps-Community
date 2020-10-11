@@ -44,7 +44,6 @@
       set_fact:
         pg_volumes:
           - '/opt/appdata/{{pgrole}}:/home/node/app/.dizquetv'
-          - '/mnt:/mnt
           - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting Environment'
