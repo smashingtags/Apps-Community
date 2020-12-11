@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+# Default login is admin:admin
 # Title:      papermerge
 # Author(s):  smashingtags
 # URL:        https://github.com/linuxserver/docker-papermerge
