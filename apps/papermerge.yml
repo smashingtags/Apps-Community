@@ -15,7 +15,7 @@
         pgrole: 'papermerge'
         intport: '8333'
         extport: '8333'
-        image: 'ghcr.io/linuxserver/papermerge'
+        image: 'linuxserver/papermerge'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
