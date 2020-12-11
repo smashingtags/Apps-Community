@@ -13,7 +13,7 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'papermerge'
-        intport: '8333'
+        intport: '8000'
         extport: '8333'
         image: 'linuxserver/papermerge'
 
