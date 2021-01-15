@@ -39,7 +39,7 @@
       set_fact:
         pg_volumes:
           - '/opt/appdata/{{pgrole}}/downloads:/downloads'
-          - '/opt/appdata/{{pgrole}}/config.toml:/config.toml'
+          - '/opt/appdata/{{pgrole}}/config:/config.toml'
           - '/etc/localtime:/etc/localtime:ro'
           
 
