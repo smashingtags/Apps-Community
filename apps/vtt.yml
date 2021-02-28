@@ -9,7 +9,7 @@
         pgrole: 'vtt'
         intport: '30000'
         extport: '30000'
-        image: 'felddy/foundryvtt:release'
+        image: 'felddy/foundryvtt:nightly'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
